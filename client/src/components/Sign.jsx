@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from '../utils/axios';
 import React, { useState } from 'react';
 
-const Signin = () => {
+const Signin = ({isLoggedIn, setIsLoggedIn}) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -42,14 +42,12 @@ const Signin = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      console.log('Sign in with:', formData);
-      // Handle login logic here (e.g., send to backend)
       try {
         const { data } = await axios.post('user/login', formData)
+        setIsLoggedIn(data.success)
         alert(data.message)
         navigate('/home')
       } catch (error) {
-        console.log(error.response.data)
         alert(error.response.data.message)
       }
     }

@@ -7,14 +7,14 @@ import Signin from './components/Sign'
 import Home from './components/Home'
 
 function App() {
-  const [count, setCount] = useState(0)
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <>
-      <Navbar/>
+      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<Signin />} />
+        <Route path="/signin" element={<Signin isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/home" element={<Home />} />
       </Routes>
     </>

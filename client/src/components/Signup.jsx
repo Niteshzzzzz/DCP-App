@@ -47,14 +47,11 @@ const Signup = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      console.log('Form submitted:', formData);
-      // You can send formData to backend here
       try {
         const { data } = await axios.post('user/register', formData)
         alert(data.message)
         navigate('/signin')
       } catch (error) {
-        console.log(error.response.data)
         alert(error.response.data.message)
       }
     }

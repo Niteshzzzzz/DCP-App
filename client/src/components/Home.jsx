@@ -10,7 +10,6 @@ const Home = () => {
         const fetchCourses = async () => {
             try {
                 const res = await axios.get('course/published-courses');
-                console.log(res.data)
                 setCourses(res.data.courses);
             } catch (error) {
                 console.error('Error fetching courses:', error);
@@ -56,7 +55,6 @@ const Home = () => {
     );
 };
 
-// Example purchase handler (to be expanded with payment logic)
 const handlePurchase = async (courseId) => {
     console.log(`Purchased course with ID: ${courseId}`);
     // Redirect to payment page or call purchase API
@@ -69,7 +67,7 @@ const handlePurchase = async (courseId) => {
         console.log(data)
         const order = data
         var options = {
-            key: "rzp_test_SQ7HHXfY5ckqAa", // Enter the Key ID generated from the Dashboard
+            key: "rzp_test_SQ7HHXfY5ckqAa", 
             amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             currency: order.currency,
             name: "ForLearner", //your business name
@@ -82,7 +80,6 @@ const handlePurchase = async (courseId) => {
                 };
 
                 const {data} = await axios.post("purchase/validate",body);
-                // const jsonRes = await validateRes.json();
                 console.log(data);
             },
             prefill: {
@@ -111,7 +108,7 @@ const handlePurchase = async (courseId) => {
         rzp1.open();
         e.preventDefault();
     } catch (error) {
-        console.log(error)
+        alert(error.response.data.message)
     }
 };
 

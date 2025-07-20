@@ -1,22 +1,28 @@
 import React, { useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import axios from '../utils/axios';
 
-const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // toggle for login
+const Navbar = ({isLoggedIn, setIsLoggedIn}) => {
+  // toggle for login
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setDropdownOpen(false);
+  const handleLogout = async () => {
+    try {
+      const {data} = await axios.get('user/logout')
+      setIsLoggedIn(false);
+      setDropdownOpen(false);
+    } catch (error) {
+      alert(error.message)
+    }
   };
 
   return (
     <nav className="bg-white shadow-md px-4 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo or App Name */}
-        <div className="text-xl font-bold text-blue-600">MyApp</div>
+        <div className="text-xl font-bold text-blue-600">ForLearner</div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-4">
